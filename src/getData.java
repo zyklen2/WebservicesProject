@@ -1,4 +1,5 @@
 import java.io .*;
+import org.apache.commons.io.IOUtils;
 import java.net .*;
 import javax.xml.xpath.*;
 import org.apache.http.*;
@@ -17,21 +18,19 @@ public class getData {
         String stubName = "1+1=2";
         try {
             HttpClient client = HttpClients.createDefault();
-
             StringBuilder builder = new StringBuilder();
             builder.append(stubsApiBaseUri);
-            String food="Arrabiata";
+            String food="Spaghetti";
             builder.append(food);
             String listStubsUri = builder.toString();
             HttpGet getStubMethod = new HttpGet(listStubsUri);
             HttpResponse getStubResponse = client.execute(getStubMethod);
-            int getStubStatusCode = getStubResponse.getStatusLine()
-                    .getStatusCode();
+            int getStubStatusCode = getStubResponse.getStatusLine().getStatusCode();
             if (getStubStatusCode < 200 || getStubStatusCode >= 300) {
                 // Statuscode ungleich 2xx behandeln
                 return;
             }
-            System.out.println(getStubResponse.getEntity());
+            System.out.println(IOUtils.toString(getStubResponse.getEntity().getContent()));
         }
         catch(IOException e)
         {
