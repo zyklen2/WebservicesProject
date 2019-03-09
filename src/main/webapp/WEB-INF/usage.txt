@@ -1,0 +1,1 @@
+HelloWorld Example is now ready on port ${thorntail.http.port}.
